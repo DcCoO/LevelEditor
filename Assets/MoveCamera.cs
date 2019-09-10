@@ -3,53 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveCamera : MonoBehaviour {
-    public bool x1;
-    public bool x2;
-    public bool x4;
+    public bool playing;
 
-    int curr = 1;
-
+    [Range(1, 4)] public int speedMultiplier = 1;
 
     public static float speed = 0.04f;
-	
-	// Update is called once per frame
-	void Update () {
-        if (curr == 1) {
-            if (x2) {
-                x1 = false;
-                x4 = false;
-                curr = 2;
-            }
-            else if (x4) {
-                x1 = false;
-                x2 = false;
-                curr = 4;
-            }
-        }
-        else if (curr == 2) {
-            if (x1) {
-                x2 = false;
-                x4 = false;
-                curr = 1;
-            }
-            if (x4) {
-                x1 = false;
-                x2 = false;
-                curr = 4;
-            }
-        }
-        else if (curr == 4) {
-            if (x1) {
-                x2 = false;
-                x4 = false;
-                curr = 1;
-            }
-            if (x2) {
-                x1 = false;
-                x4 = false;
-                curr = 2;
-            }
-        }
-        transform.Translate((float) curr * speed, 0, 0);
-	}
+
+    Transform t;
+
+    private void Start() {
+        t = transform;
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        if (Input.GetKeyDown(KeyCode.Q)) speedMultiplier--;
+        if (Input.GetKeyDown(KeyCode.E)) speedMultiplier++;
+        speedMultiplier = Mathf.Clamp(speedMultiplier, 1, 4);
+        if (Input.GetKeyDown(KeyCode.W)) playing = !playing;
+        if (Input.GetKeyDown(KeyCode.R)) t.position = new Vector3(8, t.position.y, t.position.z);
+
+        if (playing) t.Translate((float)speedMultiplier * speed, 0, 0);
+        t.Translate((float)speedMultiplier * speed * Input.GetAxisRaw("Horizontal"), 0, 0);
+
+        if (t.position.x < 8) t.position = new Vector3(8, t.position.y, t.position.z);
+    }
 }

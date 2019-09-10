@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Generator : MonoBehaviour {
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            GenerateJson();
-        }
+        if (Input.GetKeyDown(KeyCode.D)) GenerateJson();
     }
 
     public void GenerateJson() {
@@ -36,6 +36,7 @@ public class Generator : MonoBehaviour {
         }
         s += "}";
         Debug.Log(s);
+        s.CopyToClipboard();
     }
 
     float x0 = 16;
@@ -49,6 +50,7 @@ public class Generator : MonoBehaviour {
 
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Generator))]
 public class GeneratorEditor : Editor {
     public override void OnInspectorGUI() {
@@ -58,5 +60,20 @@ public class GeneratorEditor : Editor {
             Generator g = (Generator) target;
             g.GenerateJson();
         }
+    }
+}
+#endif
+
+
+public static class ClipboardExtension {
+    /// <summary>
+    /// Puts the string into the Clipboard.
+    /// </summary>
+    /// <param name="str"></param>
+    public static void CopyToClipboard(this string str) {
+        var textEditor = new TextEditor();
+        textEditor.text = str;
+        textEditor.SelectAll();
+        textEditor.Copy();
     }
 }
