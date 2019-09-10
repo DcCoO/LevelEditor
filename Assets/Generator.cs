@@ -39,7 +39,8 @@ public class Generator : MonoBehaviour {
         s.CopyToClipboard();
     }
 
-    float x0 = 16;
+    readonly float x0 = 16;
+
     float GetTime(float x) {
         return (x - x0) / MoveCamera.speed; 
     }
