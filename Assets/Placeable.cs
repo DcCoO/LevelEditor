@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -13,12 +13,25 @@ public class Placeable : MonoBehaviour {
     void OnMouseDown(){
 
         MouseRect.instance.canDrag = false;
-        print("COR = " + sr.color);
+
+
+        if(MouseRect.instance.list.Count == 0) {
+            MouseRect.instance.Clear();
+            MouseRect.instance.list.Add(transform);
+        }
+        else {
+            if (!MouseRect.instance.list.Contains(transform)) {
+                MouseRect.instance.Clear();
+                MouseRect.instance.list.Add(transform);
+            }
+        }
+
+        /*
         if (sr.color.g > 0.8f){   //se ele nao faz parte de uma selecao, ele esta branco, logo g = 1
             MouseRect.instance.Clear();
             MouseRect.instance.list.Add(transform);
             print("ENTROU AQUI2");
-        }
+        }*/
         sr.color = Color.blue;
 
         lastPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
@@ -41,7 +54,10 @@ public class Placeable : MonoBehaviour {
 
 
     private void OnMouseOver() {
-        if (Input.GetMouseButton(1)) Destroy(gameObject);
+        if (Input.GetMouseButton(1)) {
+            MouseRect.instance.list.Remove(transform);
+            Destroy(gameObject);
+        }
     }
 
     public string JSON() {

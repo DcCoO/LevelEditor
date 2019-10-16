@@ -16,7 +16,8 @@ public class Collection : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         
-        if(Input.GetKeyDown(KeyCode.A)) collectionPanel.SetActive(!collectionPanel.activeSelf);
+        if(Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl) && !Input.GetKey(KeyCode.LeftCommand) && !Input.GetKey(KeyCode.RightCommand))
+            collectionPanel.SetActive(!collectionPanel.activeSelf);
 
 	}
 

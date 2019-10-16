@@ -18,7 +18,6 @@ public class MoveCamera : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (Input.GetKeyDown(KeyCode.Q)) speedMultiplier--;
         if (Input.GetKeyDown(KeyCode.E)) speedMultiplier++;
         speedMultiplier = Mathf.Clamp(speedMultiplier, 1, 5);

@@ -16,13 +16,30 @@ public class MouseRect : MonoBehaviour {
     {
         instance = this;
     }
-    // Use this for initialization
+
+
     void Start () {
         cam = Camera.main;
 	}
 	
-	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.R)) Clear();
+        if (Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace)) DeleteSelection();
+        bool b = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.C)) { Copy(); }
+        else if (Input.GetKeyDown(KeyCode.V)) { Paste(); }
+        else if (Input.GetKeyDown(KeyCode.X)) { SelectAll(); }
+#else
+
+        if (Input.GetKeyDown(KeyCode.C) && b) { print("COPY! " + b); }
+        else if (Input.GetKeyDown(KeyCode.V) && b) { Paste(); print("PASTE!"); }
+        else if (Input.GetKeyDown(KeyCode.A) && b) { SelectAll(); }
+#endif
+
+
+
         if (!canDrag) return;
 
         if(Input.GetMouseButtonDown(0)){
@@ -45,6 +62,46 @@ public class MouseRect : MonoBehaviour {
             //canDrag = true;
         }
 	}
+
+    List<Transform> copyList = new List<Transform>();
+
+    public void SelectAll() {
+        list.Clear();
+        for (int i = 0, len = placeable.childCount; i < len; i++) {
+            list.Add(placeable.GetChild(i));
+            placeable.GetChild(i).GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+    }
+
+    public void DeleteSelection() {
+        for (int i = 0; i < list.Count; i++) {
+            Destroy(list[i].gameObject);
+        }
+        list.Clear();
+    }
+
+    public void Copy() {
+        if (list.Count == 0) return;
+        copyList.Clear();
+
+        for(int i = 0; i < list.Count; i++) {
+            copyList.Add(list[i]);
+        }
+
+        print("Copied " + list.Count + " objects");
+    }
+
+    public void Paste() {
+        Clear();
+        for (int i = 0; i < copyList.Count; i++) {
+            GameObject g = Instantiate(copyList[i].gameObject, copyList[i].position, Quaternion.identity, placeable);
+
+            list.Add(g.transform);
+            g.GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+
+        print("Copied " + copyList.Count + " objects");
+    }
 
    
 
