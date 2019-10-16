@@ -16,14 +16,14 @@ public class Generator : MonoBehaviour {
         List<GameObject> list = new List<GameObject>();
         Transform t = transform;
         int childCount = t.childCount;
-        print(childCount + " children");
+        //print(childCount + " children");
         for(int i = 0; i < childCount; i++) {
             list.Add(t.GetChild(i).gameObject);
         }
 
         list = list.OrderBy(x => x.transform.position.x).ToList();
-        print("list has " + list.Count + " elements");
-        string s = "{\n";
+        //print("list has " + list.Count + " elements");
+        string s = "[\n";
 
         for(int i = 0; i < childCount; i++) {
             GameObject g = list[i];
@@ -34,8 +34,8 @@ public class Generator : MonoBehaviour {
             if (i == childCount - 1) s += "\n";
             else s += ",\n";
         }
-        s += "}";
-        Debug.Log(s);
+        s += "]";
+        //Debug.Log(s);
         s.CopyToClipboard();
     }
 

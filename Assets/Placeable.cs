@@ -8,15 +8,37 @@ public class Placeable : MonoBehaviour {
     public SpriteRenderer sr;
     private Vector3 offset;
 
-    void OnMouseDown() {
-        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+    Vector3 lastPos;
+
+    void OnMouseDown(){
+
+        MouseRect.instance.canDrag = false;
+        print("COR = " + sr.color);
+        if (sr.color.g > 0.8f){   //se ele nao faz parte de uma selecao, ele esta branco, logo g = 1
+            MouseRect.instance.Clear();
+            MouseRect.instance.list.Add(transform);
+            print("ENTROU AQUI2");
+        }
+        sr.color = Color.blue;
+
+        lastPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
     }
+
 
     void OnMouseDrag() {
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = curPosition;
+        Vector3 currPos = Camera.main.ScreenToWorldPoint(curScreenPoint);
+        Vector3 delta = currPos - lastPos;
+        //transform.position += delta;
+        MouseRect.instance.MoveSelected(delta);
+        lastPos = currPos;
     }
+
+    private void OnMouseUp()
+    {
+        MouseRect.instance.canDrag = true;
+    }
+
 
     private void OnMouseOver() {
         if (Input.GetMouseButton(1)) Destroy(gameObject);

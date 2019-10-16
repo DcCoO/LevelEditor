@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Name: Sprite List
   m_EditorClassIdentifier: 
   list:
+  - {fileID: 21300000, guid: 035b0bc8c2ac618478131ca6d2b376eb, type: 3}
+  - {fileID: 21300000, guid: f7dc7dd426c3f3144abc7db5ecb341dc, type: 3}
+  - {fileID: 21300000, guid: 9cd2ddb56151be54ebc4752ec0caedd6, type: 3}
+  - {fileID: 21300000, guid: 881a20395edf05d489071d85460ac91c, type: 3}
+  - {fileID: 21300000, guid: 1f44d7aab6a90c04a97635083e7753e5, type: 3}
+  - {fileID: 21300000, guid: aad18ce24d4bdd34491f382a799eb3c3, type: 3}
+  - {fileID: 21300000, guid: f20b7bd097551854b9af728a9abff86d, type: 3}
+  - {fileID: 21300000, guid: a28d324abf78e4548a750262f1c66ed8, type: 3}
   - {fileID: 21300000, guid: 165b7e50c0ecd9641a37ba73a273c7ab, type: 3}
   - {fileID: 21300000, guid: dc1a5de88998a0c4b90a21f438648362, type: 3}
   - {fileID: 21300000, guid: 11266cbae9e85ba489b453e40e560a89, type: 3}
@@ -26,3 +34,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fdf51912f87095648b0af741d89f0a1c, type: 3}
   - {fileID: 21300000, guid: b3acb3191a021804c970604df533b57d, type: 3}
   - {fileID: 21300000, guid: fbea2bd769ccd2349b0ad74cae6412bc, type: 3}
+  - {fileID: 21300000, guid: 5d240bef8b76345d9bf9ab75c17cd413, type: 3}
+  - {fileID: 21300000, guid: 9063f4943c3954d239877aa7f86249a7, type: 3}
