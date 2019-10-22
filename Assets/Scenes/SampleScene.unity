@@ -3277,7 +3277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &680313002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11816,7 +11816,9 @@ MonoBehaviour:
   placeable: {fileID: 1137948481}
   canDrag: 1
   selectTexture: {fileID: 2800000, guid: aec5a6558d10a4f579070da6857818c0, type: 3}
+  sl: {fileID: 0}
   list: []
+  placeablePrefab: {fileID: 0}
 --- !u!4 &2066481751
 Transform:
   m_ObjectHideFlags: 0
@@ -11938,7 +11940,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a28d324abf78e4548a750262f1c66ed8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f20b7bd097551854b9af728a9abff86d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
