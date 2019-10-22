@@ -21,18 +21,20 @@ public class Collection : MonoBehaviour {
 
 	}
 
-    public void SpawnPlaceable(Sprite sprite) {
+    public GameObject SpawnPlaceable(Sprite sprite) {
         GameObject g = Instantiate(placeablePrefab, (Vector2) Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0)), Quaternion.identity);
         //g.transform.position = new
         g.transform.parent = placeableParent.transform;
         g.GetComponent<SpriteRenderer>().sprite = sprite;
+        return g;
     }
 
-    public void SpawnPlaceable(Sprite sprite, Vector2 position) {
+    public GameObject SpawnPlaceable(Sprite sprite, Vector2 position) {
         GameObject g = Instantiate(placeablePrefab, position, Quaternion.identity);
         //g.transform.position = new
         g.transform.parent = placeableParent.transform;
         g.GetComponent<SpriteRenderer>().sprite = sprite;
+        return g;
     }
 
 }

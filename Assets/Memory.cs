@@ -32,6 +32,13 @@ public class Memory : MonoBehaviour {
         print("TAMANHO " + res.Length + ": " + res[0] );
 
         for(int i = 0; i < res.Length; i += 3) {
+            if (res[i] == "Zumbi01") res[i] = "Enemy01";
+            else if (res[i] == "Zumbi02") res[i] = "Enemy02";
+            else if (res[i] == "Zumbi03") res[i] = "Enemy03";
+            else if (res[i] == "Zumbi04") res[i] = "Enemy04";
+            else if (res[i] == "Zumbi05") res[i] = "Enemy05";
+            else if (res[i] == "Dove01") res[i] = "Enemy06";
+
             Collection.instance.SpawnPlaceable(spriteList.GetSprite(res[i]), new Vector2(float.Parse(res[i + 1]), float.Parse(res[i + 2])));
         }
     }

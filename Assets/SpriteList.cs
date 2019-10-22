@@ -10,6 +10,7 @@ public class SpriteList : ScriptableObject {
         for(int i = 0; i < list.Length; i++) {
             if (list[i].name == name) s = list[i];
         }
+        if (s == null) Debug.LogError("Didnt find " + name + " in Sprite List");
         return s;
     }
 

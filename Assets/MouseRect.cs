@@ -8,7 +8,9 @@ public class MouseRect : MonoBehaviour {
     public Transform placeable;
     public bool canDrag = true;
     public Texture selectTexture;
+    public SpriteList sl;
     public List<Transform> list = new List<Transform>();
+    public GameObject placeablePrefab;
 
     Vector2 orgBoxPos = Vector2.zero, endBoxPos = Vector2.zero;
     Camera cam;
@@ -33,8 +35,8 @@ public class MouseRect : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.X)) { SelectAll(); }
 #else
 
-        if (Input.GetKeyDown(KeyCode.C) && b) { print("COPY! " + b); }
-        else if (Input.GetKeyDown(KeyCode.V) && b) { Paste(); print("PASTE!"); }
+        if (Input.GetKeyDown(KeyCode.C) && b) { Copy(); }
+        else if (Input.GetKeyDown(KeyCode.V) && b) { Paste(); }
         else if (Input.GetKeyDown(KeyCode.A) && b) { SelectAll(); }
 #endif
 
@@ -63,7 +65,7 @@ public class MouseRect : MonoBehaviour {
         }
 	}
 
-    List<Transform> copyList = new List<Transform>();
+    List<SceneObject> copyList = new List<SceneObject>();
 
     public void SelectAll() {
         list.Clear();
@@ -85,7 +87,7 @@ public class MouseRect : MonoBehaviour {
         copyList.Clear();
 
         for(int i = 0; i < list.Count; i++) {
-            copyList.Add(list[i]);
+            copyList.Add(new SceneObject(list[i].position, list[i].GetComponent<SpriteRenderer>().sprite.name));
         }
 
         print("Copied " + list.Count + " objects");
@@ -94,8 +96,8 @@ public class MouseRect : MonoBehaviour {
     public void Paste() {
         Clear();
         for (int i = 0; i < copyList.Count; i++) {
-            GameObject g = Instantiate(copyList[i].gameObject, copyList[i].position, Quaternion.identity, placeable);
-
+            GameObject g = Instantiate(placeablePrefab, copyList[i].position, Quaternion.identity, placeable);
+            g.GetComponent<SpriteRenderer>().sprite = sl.GetSprite(copyList[i].spriteName);
             list.Add(g.transform);
             g.GetComponent<SpriteRenderer>().color = Color.blue;
         }
@@ -108,7 +110,7 @@ public class MouseRect : MonoBehaviour {
     IEnumerator Select(float top, float bottom, float left, float right){
         Vector2 pos;
         //Clear();
-        print($"left: {left}, right: {right}, bottom: {bottom}, top: {top}");
+        //print($"left: {left}, right: {right}, bottom: {bottom}, top: {top}");
         for (int i = 0, len = placeable.childCount; i < len; i++){
             pos = placeable.GetChild(i).position;
 
@@ -143,5 +145,14 @@ public class MouseRect : MonoBehaviour {
         {
             GUI.DrawTexture(new Rect(orgBoxPos.x, Screen.height - orgBoxPos.y, endBoxPos.x - orgBoxPos.x, -1 * ((Screen.height - orgBoxPos.y) - (Screen.height - endBoxPos.y))), selectTexture); // -
         }
+    }
+}
+
+public class SceneObject{
+    public Vector2 position;
+    public string spriteName;
+
+    public SceneObject(Vector2 pos, string name){
+        this.position = pos; this.spriteName = name;
     }
 }
